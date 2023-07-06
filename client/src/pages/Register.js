@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const initialState = {
   name: "",
-  email: "aubon@gmail.com",
-  password: "123456",
+  email: "",
+  password: "",
   isMember: true,
 };
 
@@ -59,7 +59,7 @@ const Register = () => {
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
-        <div>{JSON.stringify(user)}</div>
+        {/* <div>{JSON.stringify(user)}</div> */}
         <Logo />
         <h3>{values.isMember ? "เข้าสู่ระบบ" : "สมัคร"}</h3>
         {showAlert && <Alert />}
