@@ -236,8 +236,8 @@ const reducer = (state, action) => {
       ...state,
       userLoading: false,
       user: action.payload.user,
-      userLocation: action.payload.location,
-      jobLocation: action.payload.location,
+      // userLocation: action.payload.location,
+      // jobLocation: action.payload.location,
     };
   }
   throw new Error(`no such action : ${action.type}`);

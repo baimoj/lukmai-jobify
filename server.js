@@ -45,12 +45,12 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 
 // inside public directory.
-app.use("/images", express.static("images"));
+// app.use("/images", express.static("images"));
 
-app.get("/api/v1", (req, res) => {
-  console.log("Cookies: ", req.cookies);
-  res.send("Welcome xx1!!");
-});
+// app.get("/api/v1", (req, res) => {
+//   console.log("Cookies: ", req.cookies);
+//   res.send("Welcome xx1!!");
+// });
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenicateUser, jobsRouter);
