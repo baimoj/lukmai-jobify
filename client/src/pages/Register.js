@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const initialState = {
   name: "",
-  email: "",
-  password: "",
+  email: "aubon@gmail.com",
+  password: "123456",
   isMember: true,
 };
 

@@ -3,28 +3,27 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequestError, UnAuthenticatedError } from "../errors/index.js";
 import attachCookie from "../utils/attachCookie.js";
 const register = async (req, res) => {
-  // console.log(req.body);
-
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
     throw new BadRequestError("please provide all values");
   }
-
   const userAlreadyExists = await User.findOne({ email });
   if (userAlreadyExists) {
     throw new BadRequestError("Email already in use");
   }
-
   const user = await User.create({ name, email, password });
+
   const token = user.createJWT();
+  attachCookie({ res, token });
   res.status(StatusCodes.CREATED).json({
     user: {
       email: user.email,
-      name: user.name,
-      lastname: user.lastName,
+      lastName: user.lastName,
       location: user.location,
+      name: user.name,
     },
+
     location: user.location,
   });
 };
