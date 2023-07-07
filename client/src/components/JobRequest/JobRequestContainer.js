@@ -39,7 +39,9 @@ const JobRequestContainer = () => {
   if (jobsRequest.length === 0) {
     return (
       <Wrapper>
-        <h2>ไม่มี รายการ Job sample request...</h2>
+        <h2 style={{ marginTop: "1.25rem" }}>
+          ไม่มี รายการ Job sample request...
+        </h2>
       </Wrapper>
     );
   }

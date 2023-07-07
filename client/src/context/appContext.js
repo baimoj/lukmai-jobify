@@ -380,15 +380,18 @@ const AppProvider = ({ children }) => {
 
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
+    console.log("states :", state.userLoading);
     try {
       const { data } = await authFetch("/auth/getCurrentUser");
       const { user, location } = data;
-
+      console.log("user :", user);
       dispatch({
         type: GET_CURRENT_USER_SUCCESS,
         payload: { user, location },
       });
+      console.log("states :", state.userLoading);
     } catch (error) {
+      console.log("error :", error.response);
       if (error.response.status === 401) return;
       logoutUser();
     }
@@ -400,9 +403,7 @@ const AppProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    return () => {
-      getCurrentUser();
-    };
+    getCurrentUser();
   }, []);
 
   return (

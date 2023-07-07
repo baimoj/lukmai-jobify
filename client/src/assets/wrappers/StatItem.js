@@ -1,10 +1,17 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.article`
   padding: 2rem;
   background: var(--white);
   border-radius: var(--borderRadius);
   border-bottom: 5px solid ${(props) => props.color};
+  border-left: 1px solid var(--background-color);
+  border-right: 1px solid var(--background-color);
+  border-top: 1px solid var(--background-color);
+  box-shadow: var(--shadow-2);
+  &:hover {
+    box-shadow: var(--hoverEffect);
+  }
   header {
     display: flex;
     align-items: center;
@@ -36,6 +43,6 @@ const Wrapper = styled.article`
       color: ${(props) => props.color};
     }
   }
-`
+`;
 
-export default Wrapper
+export default Wrapper;
