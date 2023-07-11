@@ -53,17 +53,17 @@ const JobRequestContainer = () => {
   }
 
   useEffect(() => {
-    return () => {
-      getJobsRequest();
-      // eslint-disable-next-line
-    };
+    //return () => {
+    getJobsRequest();
+    // eslint-disable-next-line
+    //};
   }, []);
 
   if (isLoading) {
     return <Loading center />;
   }
 
-  if (jobsRequest.length === 0) {
+  if (recordsAfterPagingAndSorting().length === 0) {
     return (
       <Wrapper>
         <h2 style={{ marginTop: "1.25rem" }}>
