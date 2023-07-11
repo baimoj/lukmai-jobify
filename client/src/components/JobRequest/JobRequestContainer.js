@@ -34,6 +34,24 @@ const JobRequestContainer = () => {
     setOpenPopup(!openPopup);
   };
 
+  function daysLate({ item }) {
+    const late = moment(
+      moment(item.status === "success" ? item.updatedAt : moment()).format(
+        "YYYY-MM-DD"
+      )
+    ).diff(
+      moment(
+        moment().format("YYYY-MM-DD") <=
+          moment(item.dueDate).format("YYYY-MM-DD")
+          ? moment()
+          : item.dueDate
+      ).format("YYYY-MM-DD"),
+      "days"
+    );
+    const day = late <= 0 ? 0 : late;
+    return day;
+  }
+
   useEffect(() => {
     return () => {
       getJobsRequest();
@@ -114,21 +132,7 @@ const JobRequestContainer = () => {
                     "days"
                   ) + 1}
                 </td>
-                <td>
-                  {moment(
-                    moment(
-                      item.status === "success" ? item.updatedAt : moment()
-                    ).format("YYYY-MM-DD")
-                  ).diff(
-                    moment(
-                      moment().format("YYYY-MM-DD") <=
-                        moment(item.dueDate).format("YYYY-MM-DD")
-                        ? moment()
-                        : item.dueDate
-                    ).format("YYYY-MM-DD"),
-                    "days"
-                  )}
-                </td>
+                <td>{daysLate({ item })}</td>
                 <td>
                   <div className={`chip-${item.status}`}>{item.status}</div>
                 </td>
