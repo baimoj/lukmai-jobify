@@ -6,6 +6,7 @@ import { useAppContext } from "../../context/appContext";
 import Loading from "../Loading";
 import Wrapper from "../../assets/wrappers/JobRequest/JobRequestContainer";
 import PageBtnContainer from "../PageBtnContainer";
+import { Popup, PopupDetails } from "../Popup";
 
 const JobRequestContainer = () => {
   const {
@@ -24,6 +25,14 @@ const JobRequestContainer = () => {
   const [rowsPerPage, setRowsPerPage] = useState(pages[1]);
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [detailsData, setDetailsData] = useState(null);
+
+  const popupHandler = async ({ item }) => {
+    console.log(item);
+    setDetailsData({ item });
+    setOpenPopup(!openPopup);
+  };
 
   useEffect(() => {
     return () => {
@@ -169,7 +178,9 @@ const JobRequestContainer = () => {
                     style={{
                       paddingInline: "0.75rem",
                     }}
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                      popupHandler({ item });
+                    }}
                   >
                     details
                   </button>
@@ -183,6 +194,18 @@ const JobRequestContainer = () => {
           recordsAfterPagingAndSorting().length / rowsPerPage
         )}
       />
+      {openPopup && (
+        <Popup
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+          title={`Details`}
+          footer={``}
+        >
+          <div>
+            <PopupDetails data={detailsData} />
+          </div>
+        </Popup>
+      )}
     </Wrapper>
   );
 };
