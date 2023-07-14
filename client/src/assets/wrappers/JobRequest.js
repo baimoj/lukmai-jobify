@@ -4,14 +4,16 @@ const Wrapper = styled.section`
   border-radius: var(--borderRadius);
   width: 100%;
   background: var(--white);
-  padding: 1rem 1rem 3rem;
+  padding: 0.5rem 0.5rem 3rem;
   box-shadow: var(--shadow-2);
   transition: var(--transition);
   &:hover {
     box-shadow: var(--hoverEffect);
   }
+  h5,
   h3 {
     margin-top: 0;
+    margin-left: 1.25rem;
   }
   .form {
     margin: 0;
@@ -26,7 +28,7 @@ const Wrapper = styled.section`
   }
   .form-center {
     display: grid;
-    row-gap: 0.25rem;
+    /* row-gap: 0rem; */
   }
 
   .form-center button {

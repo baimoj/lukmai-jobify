@@ -6,6 +6,7 @@ import { useAppContext } from "../../context/appContext";
 import Loading from "../Loading";
 import Wrapper from "../../assets/wrappers/JobRequest/JobRequestContainer";
 import PageBtnContainer from "../PageBtnContainer";
+import { Popup, PopupDetails } from "../Popup";
 
 const JobRequestContainer = () => {
   const {
@@ -24,19 +25,45 @@ const JobRequestContainer = () => {
   const [rowsPerPage, setRowsPerPage] = useState(pages[1]);
   const [order, setOrder] = useState();
   const [orderBy, setOrderBy] = useState();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [detailsData, setDetailsData] = useState(null);
+
+  const popupHandler = async ({ item }) => {
+    console.log(item);
+    setDetailsData({ item });
+    setOpenPopup(!openPopup);
+  };
+
+  function daysLate({ item }) {
+    const late = moment(
+      moment(item.status === "success" ? item.updatedAt : moment()).format(
+        "YYYY-MM-DD"
+      )
+    ).diff(
+      moment(
+        moment().format("YYYY-MM-DD") <=
+          moment(item.dueDate).format("YYYY-MM-DD")
+          ? moment()
+          : item.dueDate
+      ).format("YYYY-MM-DD"),
+      "days"
+    );
+    const day = late <= 0 ? 0 : late;
+    return day;
+  }
 
   useEffect(() => {
-    return () => {
-      getJobsRequest();
-      // eslint-disable-next-line
-    };
+    //return () => {
+    getJobsRequest();
+    // eslint-disable-next-line
+    //};
   }, []);
 
   if (isLoading) {
     return <Loading center />;
   }
 
-  if (jobsRequest.length === 0) {
+  if (recordsAfterPagingAndSorting().length === 0) {
     return (
       <Wrapper>
         <h2 style={{ marginTop: "1.25rem" }}>
@@ -105,21 +132,7 @@ const JobRequestContainer = () => {
                     "days"
                   ) + 1}
                 </td>
-                <td>
-                  {moment(
-                    moment(
-                      item.status === "success" ? item.updatedAt : moment()
-                    ).format("YYYY-MM-DD")
-                  ).diff(
-                    moment(
-                      moment().format("YYYY-MM-DD") <=
-                        moment(item.dueDate).format("YYYY-MM-DD")
-                        ? moment()
-                        : item.dueDate
-                    ).format("YYYY-MM-DD"),
-                    "days"
-                  )}
-                </td>
+                <td>{daysLate({ item })}</td>
                 <td>
                   <div className={`chip-${item.status}`}>{item.status}</div>
                 </td>
@@ -169,7 +182,9 @@ const JobRequestContainer = () => {
                     style={{
                       paddingInline: "0.75rem",
                     }}
-                    onClick={(e) => {}}
+                    onClick={(e) => {
+                      popupHandler({ item });
+                    }}
                   >
                     details
                   </button>
@@ -183,6 +198,18 @@ const JobRequestContainer = () => {
           recordsAfterPagingAndSorting().length / rowsPerPage
         )}
       />
+      {openPopup && (
+        <Popup
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+          title={`Details`}
+          footer={``}
+        >
+          <div>
+            <PopupDetails data={detailsData} />
+          </div>
+        </Popup>
+      )}
     </Wrapper>
   );
 };

@@ -478,7 +478,7 @@ const AddJobRequest = () => {
             </tbody>
           </table>
         ) : (
-          <h3 style={{ marginTop: "0.75rem" }}>
+          <h3 style={{ marginTop: "0.75rem", marginBottom: "0" }}>
             ไม่มีข้อมูล รายการ ขอตัวอย่าง
           </h3>
         )}

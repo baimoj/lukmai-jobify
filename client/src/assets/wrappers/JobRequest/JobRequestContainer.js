@@ -74,7 +74,7 @@ const Wrapper = styled.section`
     display: grid;
     grid-template-columns: 1fr;
     column-gap: 1.25rem;
-    row-gap: 0.5rem;
+    row-gap: 0.25rem;
     margin-bottom: 0.25rem;
   }
   h5 {
@@ -159,7 +159,7 @@ const Wrapper = styled.section`
       background-color: var(--table-even-color);
     }
     tbody tr:hover {
-      cursor: pointer;
+      // cursor: pointer;
       background-color: var(--navlink-hover);
     }
     tbody tr {
@@ -206,7 +206,16 @@ const Wrapper = styled.section`
       }
     }
   }
-
+  @keyframes dropTop {
+    0% {
+      transform: translateY(-100%) scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0%) scale(1);
+      opacity: 1;
+    }
+  }
   @media (min-width: 768px) {
     .form-center {
       grid-template-columns: 1fr 1fr;

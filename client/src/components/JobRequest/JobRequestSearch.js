@@ -49,7 +49,9 @@ const JobRequestSearch = () => {
           (item) =>
             item.status?.toString().includes(statusText) &&
             (item.requestBy.toLowerCase().includes(searchText) ||
-              item.jobRequestNo.toLowerCase().includes(searchText) ||
+              item.jobRequestNo
+                .toLowerCase()
+                .includes(searchText.toLowerCase()) ||
               item.jobCompanyName.toLowerCase().includes(searchText))
         );
       },
@@ -80,6 +82,7 @@ const JobRequestSearch = () => {
 
     changePage(0);
     statusText = statusText === "all" ? "" : statusText;
+
     setFilterFn({
       fn: (items) => {
         return items.filter(
